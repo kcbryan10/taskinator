@@ -236,10 +236,27 @@ var taskStatusChangeHandler = function(event){
 }
 
 var saveTasks = function(){
-  localStorage.setItem("tasks", JSON.stringify(tasks));  
+    localStorage.setItem("tasks", JSON.stringify(tasks));  
+}
+
+var loadTasks = function(){
+
+    var storedTasks = localStorage.getItem("tasks");  
+
+        if(!storedTasks){
+            return false;
+        }
+    
+        storedTasks = JSON.parse(storedTasks);
+
+        for (var i=0; i< storedTasks.length; i++){
+            createTaskEl(storedTasks[i]);
+        }
+
 }
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 
+loadTasks();
